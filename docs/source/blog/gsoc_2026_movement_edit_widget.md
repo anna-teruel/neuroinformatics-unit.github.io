@@ -42,28 +42,51 @@ When a point is moved, its confidence no longer means anything. The confidence c
 
 ### Showing the edits
 
-Those flags then drive the display. Edited points are drawn as a hollow ring instead of a filled marker, using napari's per-point symbol support, and the ring survives a reload because it is derived from the `edited` property rather than set by hand. To see edits across a whole recording rather than one frame at a time, a timeline widget embeds a Matplotlib canvas in a dock at the bottom of the viewer and marks every edited frame with a blue bar, so a user can scan the recording and jump straight to the frames they have already touched.
+Keep track of what has already been edited matters as much as making the edit. This widget shows edits in two places: (1) on the individual points of the current frame; and (2) on a timeline spanning the whole recording. 
 
-<!-- Screenshot: filled vs. ring points; and the timeline widget with blue bars. -->
+On each individual frame, an edited keypoint is drawn as a hollow ring instead of a filled point. The symbol is derived directly from the `edited` property, so it is rebuilt every time the dataset is reloaded rather than being applied by hand. Scanning a single frame, the user can immediately tell edited (dragged) points from untouched ones. Points that are deleted are removed from the `Points` layer. 
+
+<!-- Screenshot: the Points layer in a frame, showing filled markers for untouched keypoints and hollow rings for edited ones. -->
+
+A timeline widget docked at the bottom of the viewer embeds a `matplotlib` canvas that plots one bar per frame. Instead of stepping through the video frame by frame, the user can scan the whole recording at a glance and click a bar to jump straight to a frame they have already edited.
+
+The canvas is zoomable and scrollable: the user can zoom in and pan along the time axis to work through a dense region frame by frame, then double-click to snap back to the global view of the whole recording. This keeps the timeline usable for long recordings with thousands of frames.
+
+<!-- Screenshot: the timeline dock widget below the viewer, with blue bars marking edited frames. -->
+
+For multi-animal datasets, the timeline can be split into one row per individual, so the user can see not just which frames were edited but which animal each edit belongs to.
+
+<!-- Screenshot: display individuals
+ -->
+
+ The canvas is zoomable and scrollable: the user can zoom out to see the whole recording at once, or zoom in and pan along the time axis to work frame-by-frame in a dense region. This keeps the timeline usable for long recordings with thousands of frames.
+
+<!-- Screenshot: Zoom in and scroll option. 
+ -->
 
 ### Keeping the layers in sync
 
 Because the `Points` and `Tracks` layers are two views of the same data, an edit to one has to propagate to the other. When a point is dragged or deleted, the corresponding vertex of the trajectory is updated in place, so the track line follows the correction immediately instead of only after the file is reloaded.
 
+<!-- Screenshot: tracks being updated from a Point edit. Show both drag and delete. 
+ -->
+
 ### Saving
 
-The Save widget ties it together. It first checks that the `Points` layer was created by `movement`'s loader — editing an arbitrary napari layer and trying to save it as a pose dataset should fail cleanly — then runs `napari_layers_to_ds()` and writes the result to a NetCDF file through `movement.io`, so the corrected tracks come out in the same format they went in.
+The Save widget ties it together: it calls `napari_layers_to_ds()` on the edited layer and writes the result to a NetCDF file through `movement.io`, so the corrected tracks come out in the same format they went in. Before saving, it checks that the `Points` layer was actually created by `movement`'s loader, so trying to save an arbitrary napari layer as a pose dataset fails cleanly.
 
 <!-- Screenshot: the Save panel. -->
 
 
 ## What I did
 
-### Background
+This project grew out of my own work with pose-estimation data. I was analysing drone videos of seabirds and using `movement` to study their trajectories when I ran into a large number of identity swaps. Correcting them by hand took a long time and was tedious with the tools I had. It struck me that being able to manually curate tracks would help not only me but anyone working with multi-animal pose-estimation data, and that is what led me to apply to GSoC to build it.
 
-<!-- TODO: how you found the project, first steps in the codebase, mental map of the code -->
+I had already written a prototype before the program, without knowing the `movement` codebase well. During GSoC my mentors guided me through turning it into something maintainable: how to plan the work, and how to design the core carefully so that later features would not run into structural problems. We met weekly to discuss progress, and I also had the chance to meet the team in person at FENS 2026 in Barcelona.
 
-Before the coding period I contributed to several open-source projects to get comfortable with collaborative development — including [PlotlyBrain](https://github.com/), the `scipaper` classifier, and DeepLabCut ([PR #2715](https://github.com/DeepLabCut/DeepLabCut/pull/2715), adding function tests and improving docstrings).
+The outcome of the coding period is an edit-and-save widget that is about to be released. Manual identity-swap correction is still in progress and will be part of my continued collaboration with `movement` after GSoC.
+
+Partway through the program I gave a short talk about the tool at the Neuroinformatics Unit's summer school. Preparing it pushed me to think about how to organise and structure the information a user needs, which fed directly into the documentation. Presenting to researchers who work with pose-estimation data every day also gave me usability feedback straight from its intended users, and several of their ideas have shaped where the tool is heading.
 
 ### PRs created during the coding period
 
