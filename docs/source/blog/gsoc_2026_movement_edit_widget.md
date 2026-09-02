@@ -123,7 +123,13 @@ In addition to writing code, I reviewed the following PRs:
 
 ## Challenges
 
-Writing the data back is the harder half, and most of my coding period went into it.
+### Making one function handle every editing scenario
+
+The hardest part of the project was `napari_layers_to_ds`, the function that rebuilds a `movement` dataset from the edited napari layers. It sits at the centre of everything: nothing a user does in the GUI is real until it can be written back losslessly, so every new editing feature ended up landing on this one function. It started as a simple inverse of the loader, but each editing scenario forced it to grow. A dragged point brings new coordinates, a deleted point leaves no trace in the layer and has to be told apart from a detection that was always missing, an emptied keypoint or individual should disappear from the dataset while an emptied frame should not. Holding all of these cases in one coherent implementation, without one fix breaking another, was the part I spent the most time on.
+
+### Learning to test
+
+Testing that implementation was a challenge of its own. Good tests here mean being deliberately adversarial. Imagining every way a user could push the widget into a strange state and checking the function still produces a valid dataset. I had less experience with that kind of testing coming in, and at the start of the coding period it was genuinely tough: I found it hard to know what a thorough test suite should even cover. It grew on me, though. Writing the tests turned out to be one of the best ways to understand the design. Every awkward case I had to construct a test for was a case the implementation had to account for, and thinking through them often changed the code itself. By the end I was enjoying it.
 
 
 ## Future work
