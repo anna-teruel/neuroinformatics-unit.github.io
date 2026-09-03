@@ -28,7 +28,7 @@ This projects fills this gap inside the `movement` ecosystem by building an edit
 
 ### From dataset to layers, and back
 
-Loading a dataset in `movement` napari's GUI means flattening `movement`'s `(individuals, keypoints, space, time)` array into the flat array of points that napari expects. Missing detections (`NaN`) are not drawn in the `Points` layer, so at any frame the layer only holds the points that actually exist. 
+Loading a dataset in `movement` napari's GUI means reshaping `movement`'s `(individuals, keypoints, space, time)` array into the 2D array of points that napari expects. Missing detections (`NaN`) are not drawn in the `Points` layer, so at any frame the layer only holds the points that actually exist.
 
 Before making any edit on the dataset, we needed to write the data back from napari layer's to `movement` `xarrays`. The function that converts `xarrays` to `napari` layers is `ds_to_napari_layers`. We implemented a mirror function named `napari_layers_to_ds` that deals with the way back trip: reverses this flattening process, rebuilding the full `(individuals, keypoints, space, time)` array from the layer and its properties, and re-inserts `NaN` everywhere a point is missing. 
 
