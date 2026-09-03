@@ -140,9 +140,11 @@ Beyond that, I want to keep improving usability, respond to issues on the reposi
 
 ## Conclusions
 
-<!-- TODO: short wrap-up. What the tool enables for researchers, what you learned
-     about collaborative open-source development and UX design, and how it felt to
-     take something from prototype to a usable feature. -->
+By the end of the summer, `movement` had gone from having no way to edit tracks to having a working napari widget for it: users can load their pose data over the source video, drag, add and remove keypoints, watch the trajectories update as they go, keep track of every change they have made, and save the corrected dataset straight back to `movement`'s format. The manual-correction step that used to mean leaving `movement` for a slower, separate tool now happens inside it.
+
+The widget is not finished — identity-swap correction and a few other pieces from the original design are still ahead — but the foundations are in place, and I intend to keep building on them.
+
+On a personal level, this was my first time taking something from a rough prototype to a feature other people will actually use, and most of what I learned was about the parts around the code rather than the code itself: designing an implementation before writing it, splitting the work into reviewable pieces, responding to review, and testing an idea hard enough to trust it. I came in more comfortable with the science than with the software engineering, and I leave a lot more confident in both. I'm grateful to GSoC, to the Neuroinformatics Unit, and to my mentors for making that possible, and I'm looking forward to staying part of the `movement` community.
 
 ## Acknowledgements
 
