@@ -10,7 +10,7 @@
 
 ## Introduction
 
-Hi, I'm [Anna](https://github.com/anna-teruel). I'm a neuroscientist interested in the study of animal social behaviour. 
+Hi, I'm [Anna](https://github.com/anna-teruel). I'm a neuroscientist interested in the study of social behaviour. 
 During my PhD I started using different open-source pose-estimation tools, such as [DeepLabCut](https://github.com/DeepLabCut/DeepLabCut), to track animal behaviour. Working with real, multi-animal recordings, I kept running into the same problems: occlusions, noisy detections, and identity swaps that no automated pipeline could fully resolve. Programmatic corrections improved the data, but visual inspection and manual correction were always necessary, and the tools available for that were slow and hard to scale to large datasets.
 
 This summer, through [Google Summer of Code](https://summerofcode.withgoogle.com/) I had the opportunity to work with the [Neuroinformatics Unit](https://neuroinformatics.dev/) on [`movement`](https://movement.neuroinformatics.dev/), a Python toolbox for analysing animal body movements in pose-estimation data. My project added an interactive [napari](https://napari.org/)-based GUI for correcting pose-estimation tracks directly within the `movement` framework.
@@ -59,10 +59,6 @@ For multi-animal datasets, the timeline can be split into one row per individual
 <!-- Screenshot: display individuals
  -->
 
- The canvas is zoomable and scrollable: the user can zoom out to see the whole recording at once, or zoom in and pan along the time axis to work frame-by-frame in a dense region. This keeps the timeline usable for long recordings with thousands of frames.
-
-<!-- Screenshot: Zoom in and scroll option. 
- -->
 
 ### Keeping the layers in sync
 
@@ -140,9 +136,9 @@ Beyond that, I want to keep improving usability, respond to issues on the reposi
 
 ## Conclusions
 
-By the end of the summer, `movement` had gone from having no way to edit tracks to having a working napari widget for it: users can load their pose data over the source video, drag, add and remove keypoints, watch the trajectories update as they go, keep track of every change they have made, and save the corrected dataset straight back to `movement`'s format. The manual-correction step that used to mean leaving `movement` for a slower, separate tool now happens inside it.
+By the end of the summer, `movement` had gone from having no way to edit tracks to having a working napari widget for it: users can load their pose data over the source video, drag, add and remove keypoints, watch the trajectories update as they go, keep track of every change they have made, and save the corrected dataset straight back to `movement`'s format.
 
-The widget is not finished — identity-swap correction and a few other pieces from the original design are still ahead — but the foundations are in place, and I intend to keep building on them.
+The widget is not finished. Identity-swap correction and a few other pieces from the original design are still ahead. But the foundations are in place, and I intend to keep building on them.
 
 On a personal level, this was my first time taking something from a rough prototype to a feature other people will actually use, and most of what I learned was about the parts around the code rather than the code itself: designing an implementation before writing it, splitting the work into reviewable pieces, responding to review, and testing an idea hard enough to trust it. I came in more comfortable with the science than with the software engineering, and I leave a lot more confident in both. I'm grateful to GSoC, to the Neuroinformatics Unit, and to my mentors for making that possible, and I'm looking forward to staying part of the `movement` community.
 
