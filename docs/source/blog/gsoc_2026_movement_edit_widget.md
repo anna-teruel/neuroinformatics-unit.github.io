@@ -73,6 +73,14 @@ The Save widget ties it together: it calls `napari_layers_to_ds()` on the edited
 
 <!-- Screenshot: the Save panel. -->
 
+### Reloading an edited dataset
+
+Curating a long recording is rarely a single sitting, so the edits have to survive being closed and reopened. 
+
+The file the Save widget writes is a `movement` dataset that also carries the `edited` property. Loading the `.nc` back into the GUI restures the full editing state: previously edited keypoints shown as rings, the timeline re-populates its bars, and any further correction accumulates on top of the earlier ones. This way, a session can be picked up exactly where it was left. 
+
+<!-- Screenshot: a reloaded dataset, with rings and timeline bars from a previous session already in place. -->
+
 
 ## What I did
 
