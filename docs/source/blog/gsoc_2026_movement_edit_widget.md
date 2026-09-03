@@ -46,32 +46,50 @@ Keep track of what has already been edited matters as much as making the edit. T
 
 On each individual frame, an edited keypoint is drawn as a hollow ring instead of a filled point. The symbol is derived directly from the `edited` property, so it is rebuilt every time the dataset is reloaded rather than being applied by hand. Scanning a single frame, the user can immediately tell edited (dragged) points from untouched ones. Points that are deleted are removed from the `Points` layer. 
 
-<!-- Screenshot: the Points layer in a frame, showing filled markers for untouched keypoints and hollow rings for edited ones. -->
+<video autoplay loop muted playsinline
+       style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
+  <source src="/_static/blog_images/gsoc2026_edit_save_widget/01_dragged_removed_points.mov" type="video/mp4">
+</video>
 
 A timeline widget docked at the bottom of the viewer embeds a `matplotlib` canvas that plots one bar per frame. Instead of stepping through the video frame by frame, the user can scan the whole recording at a glance and click a bar to jump straight to a frame they have already edited.
 
+<video autoplay loop muted playsinline
+       style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
+  <source src="/_static/blog_images/gsoc2026_edit_save_widget/02_basic_widget.mov" type="video/mp4">
+</video>
+
 The canvas is zoomable and scrollable: the user can zoom in and pan along the time axis to work through a dense region frame by frame, then double-click to snap back to the global view of the whole recording. This keeps the timeline usable for long recordings with thousands of frames.
 
-<!-- Screenshot: the timeline dock widget below the viewer, with blue bars marking edited frames. -->
+<video autoplay loop muted playsinline
+       style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
+  <source src="/_static/blog_images/gsoc2026_edit_save_widget/03_zooming_scrolling.mov" type="video/mp4">
+</video>
 
 For multi-animal datasets, the timeline can be split into one row per individual, so the user can see not just which frames were edited but which animal each edit belongs to.
 
-<!-- Screenshot: display individuals
- -->
-
+<video autoplay loop muted playsinline
+       style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
+  <source src="/_static/blog_images/gsoc2026_edit_save_widget/04_display_individuals.mov" type="video/mp4">
+</video>
 
 ### Keeping the layers in sync
 
 Because the `Points` and `Tracks` layers are two views of the same data, an edit to one has to propagate to the other. When a point is dragged or deleted, the corresponding vertex of the trajectory is updated in place, so the track line follows the correction immediately instead of only after the file is reloaded.
 
-<!-- Screenshot: tracks being updated from a Point edit. Show both drag and delete. 
- -->
+<video autoplay loop muted playsinline
+       style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
+  <source src="/_static/blog_images/gsoc2026_edit_save_widget/05_tracks_update.mov" type="video/mp4">
+</video>
 
 ### Saving
 
 The Save widget ties it together: it calls `napari_layers_to_ds()` on the edited layer and writes the result to a NetCDF file through `movement.io`, so the corrected tracks come out in the same format they went in. Before saving, it checks that the `Points` layer was actually created by `movement`'s loader, so trying to save an arbitrary napari layer as a pose dataset fails cleanly.
 
-<!-- Screenshot: the Save panel. -->
+<video autoplay loop muted playsinline
+       style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
+  <source src="/_static/blog_images/gsoc2026_edit_save_widget/06_save.mov" type="video/mp4">
+</video>
+
 
 ### Reloading an edited dataset
 
@@ -79,8 +97,10 @@ Curating a long recording is rarely a single sitting, so the edits have to survi
 
 The file the Save widget writes is a `movement` dataset that also carries the `edited` property. Loading the `.nc` back into the GUI restures the full editing state: previously edited keypoints shown as rings, the timeline re-populates its bars, and any further correction accumulates on top of the earlier ones. This way, a session can be picked up exactly where it was left. 
 
-<!-- Screenshot: a reloaded dataset, with rings and timeline bars from a previous session already in place. -->
-
+<video autoplay loop muted playsinline
+       style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
+  <source src="/_static/blog_images/gsoc2026_edit_save_widget/07_reload.mov" type="video/mp4">
+</video>
 
 ## What I did
 
