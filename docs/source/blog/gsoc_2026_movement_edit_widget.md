@@ -158,7 +158,7 @@ Testing that implementation was a challenge of its own. Good tests here mean bei
 
 ## Future work
 
-GSoC gave the widget its foundations, but the full tool we designed in [issue #993](https://github.com/neuroinformatics-unit/movement/issues/993) is not finished yet. After the program I plan to keep contributing to `movement` to complete it: closing the remaining subissues tracked under that issue: [issue #996](https://github.com/neuroinformatics-unit/movement/issues/996), [issue #1006](https://github.com/neuroinformatics-unit/movement/issues/1006), [issue #998](https://github.com/neuroinformatics-unit/movement/issues/998), [issue #1009](https://github.com/neuroinformatics-unit/movement/issues/1009), [issue #1052](https://github.com/neuroinformatics-unit/movement/issues/1052), [issue #1059](https://github.com/neuroinformatics-unit/movement/issues/1059), [issue #1060](https://github.com/neuroinformatics-unit/movement/issues/1060)
+GSoC gave the widget its foundations, but the full tool we designed in [issue #993](https://github.com/neuroinformatics-unit/movement/issues/993) is not finished yet. After the program I plan to keep contributing to `movement` to complete it: aiming to close all the remaining sub-issues of [#993](https://github.com/neuroinformatics-unit/movement/issues/993).
 
 Beyond that, I want to keep improving usability, respond to issues on the repository as people start using the tool, and keep the GUI components stable across releases. I will also join the fortnightly `movement` community calls to stay up to date with where the package is heading and make sure the widget evolves along with it.
 
