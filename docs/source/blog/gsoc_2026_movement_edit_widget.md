@@ -50,7 +50,7 @@ On each individual frame, an edited keypoint is drawn as a hollow ring instead o
   <source src="/_static/blog_images/gsoc2026_edit_save_widget/01_dragged_removed_points.mov" type="video/mp4">
 </video>
 
-A timeline widget docked at the bottom of the viewer embeds a `matplotlib` canvas that plots one bar per frame. Instead of stepping through the video frame by frame, the user can scan the whole recording at a glance and click a bar to jump straight to a frame they have already edited.
+To quickly visualise frames with edits, a timeline widget docked at the bottom of the viewer embeds a `matplotlib` canvas that plots one bar per frame. Instead of stepping through the video frame by frame, the user can scan the whole recording at a glance and click a bar to jump straight to a frame they have already edited.
 
 <video autoplay loop muted playsinline
        style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
