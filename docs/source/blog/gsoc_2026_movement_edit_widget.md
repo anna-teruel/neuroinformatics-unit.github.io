@@ -32,7 +32,7 @@ The editing itself relies on native `napari` tools, so anyone familiar with napa
 
 Loading a dataset in `movement` napari's GUI means reshaping `movement`'s `(individuals, keypoints, space, time)` array into the 2D array of points that napari expects. Missing detections (`NaN`) are not drawn in the `Points` layer, so at any frame the layer only holds the points that actually exist.
 
-Writing edits back into `movement` needed the mirror of `ds_to_napari_layers`: a function we called `napari_layers_to_ds`, which turns an edited `Points` layer back into a `movement` dataset. Adapting it to correctly handle both dragging and deleting a point took real care — the goal was to make sure that any change a user made in napari was faithfully reflected in the resulting dataset — and we backed that with a thorough set of tests covering the different editing scenarios. 
+Writing edits back into `movement` needed the mirror of `ds_to_napari_layers`: a function we called `napari_layers_to_ds`, which turns an edited `Points` layer back into a `movement` dataset. Adapting it to correctly handle both dragging and deleting a point took real care. The goal was to make sure that any change a user made in napari was faithfully reflected in the resulting dataset, and we backed that with a thorough set of tests covering the different editing scenarios. 
 
 
 ### Showing the edits
@@ -94,16 +94,16 @@ Partway through the program I gave a short talk about the tool at the Neuroinfor
 
 Over the coding period I opened the following PRs on `movement`:
 
-1. [Conversion from napari Points layers to movement pose datasets](https://github.com/neuroinformatics-unit/movement/pull/1011)
-2. [Update bbox nan fixture](https://github.com/neuroinformatics-unit/movement/pull/1020)
-3. [Set confidence of edited points in napari to NaN](https://github.com/neuroinformatics-unit/movement/pull/1024)
-4. [Reconstruction of removed napari pose predictions back to movement ds](https://github.com/neuroinformatics-unit/movement/pull/1025)
-5. [Adding edited properties to napari layers when a keypoint is dragged](https://github.com/neuroinformatics-unit/movement/pull/1041)
-6. [Save widget for napari plugin](https://github.com/neuroinformatics-unit/movement/pull/1044)
-7. [Changing the point symbol to ring for edited points in napari](https://github.com/neuroinformatics-unit/movement/pull/1053)
-8. [Synchronize tracks layer to points layer](https://github.com/neuroinformatics-unit/movement/pull/1054)
-9. [Set property edited = True on removed predictions](https://github.com/neuroinformatics-unit/movement/pull/1057)
-10. [Add napari timeline widget to flag edited points](https://github.com/neuroinformatics-unit/movement/pull/1063)
+1. Conversion from napari Points layers to movement pose datasets ([#1011](https://github.com/neuroinformatics-unit/movement/pull/1011))
+2. Update bbox nan fixture ([#1020](https://github.com/neuroinformatics-unit/movement/pull/1020))
+3. Set confidence of edited points in napari to NaN ([#1024](https://github.com/neuroinformatics-unit/movement/pull/1024))
+4. Reconstruction of removed napari pose predictions back to movement ds ([#1025](https://github.com/neuroinformatics-unit/movement/pull/1025))
+5. Adding edited properties to napari layers when a keypoint is dragged ([#1041](https://github.com/neuroinformatics-unit/movement/pull/1041))
+6. Save widget for napari plugin ([#1044](https://github.com/neuroinformatics-unit/movement/pull/1044))
+7. Changing the point symbol to ring for edited points in napari ([#1053](https://github.com/neuroinformatics-unit/movement/pull/1053))
+8. Synchronize tracks layer to points layer ([#1054](https://github.com/neuroinformatics-unit/movement/pull/1054))
+9. Set property edited = True on removed predictions ([#1057](https://github.com/neuroinformatics-unit/movement/pull/1057))
+10. Add napari timeline widget to flag edited points ([#1063](https://github.com/neuroinformatics-unit/movement/pull/1063))
 
 In addition to writing code, I reviewed the following PRs:
 
