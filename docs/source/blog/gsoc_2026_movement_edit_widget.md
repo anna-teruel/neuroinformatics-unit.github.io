@@ -57,7 +57,7 @@ To quickly visualise frames with edits, a timeline widget docked at the bottom o
   <source src="/_static/blog_images/gsoc2026_edit_save_widget/02_basic_widget.mov" type="video/mp4">
 </video>
 
-The canvas is zoomable and scrollable: the user can zoom in and pan along the time axis to work through a dense region frame by frame, then double-click to snap back to the global view of the whole recording. This keeps the timeline usable for long recordings with thousands of frames.
+The canvas in the timeline widget is zoomable and scrollable: the user can zoom in and pan along the time axis to work through a dense region frame by frame, then double-click to snap back to the global view of the whole recording. This facilitates editing long recordings with thousands of frames.
 
 For multi-animal datasets, the timeline can be split into one row per individual, so the user can see not just which frames were edited but which animal each edit belongs to.
 
