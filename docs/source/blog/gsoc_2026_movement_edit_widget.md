@@ -1,5 +1,5 @@
 :blogpost: true
-:date: September 7, 2026
+:date: September 4, 2026
 :author: Anna Teruel-Sanchis
 :location: Bremen, Germany
 :category: Blog
@@ -21,7 +21,7 @@ This summer, through [Google Summer of Code](https://summerofcode.withgoogle.com
 
 In multi-animal tracking, automated pose estimation pipelines routinely fail because of occlusions and identity ambiguity. The result is data with misplaced keypoints, missing detections, and individuals whose identities get swapped from one frame to the next. Before these tracks can be used for analysis, a researcher has to go through the recording and fix the errors either programmatically or by hand. However, tools available for proofreading/refinement are usually very slow, unintuitive and hard to scale to large datasets. 
 
-This project fills this gap inside the `movement` ecosystem by building an edit-and-save widget for its napari GUI. The end goal we designed is a widget that covers the whole manual-curation workflow: dragging, adding and removing keypoints with real-time updates, correcting identity swaps across frames, and saving the edited dataset straight back to `movement`'s native format. By the end of GSoC most of this was in place: dragging and removing keypoints, live updates, saving and reloading a corrected dataset. While identity-swap correction and a few smaller refinements are still in progress.
+This project fills this gap inside the `movement` ecosystem by building an edit-and-save widget for its napari GUI. Our end goal was to design a widget that covers the whole manual-curation workflow: dragging, adding and removing keypoints with real-time updates, correcting identity swaps across frames, and saving the edited dataset straight back to `movement`'s native format. By the end of GSoC most of this was in place: dragging and removing keypoints, live updates, saving and reloading a corrected dataset. While identity-swap correction and a few smaller refinements are still in progress.
 
 The editing itself relies on native `napari` tools, so anyone familiar with napari can get started quickly. Every change a user makes is flagged in the data and the GUI, so refined points stay easy to identify afterwards. 
 
@@ -37,7 +37,7 @@ Writing edits back into `movement` needed the mirror of `ds_to_napari_layers`: a
 
 ### Showing the edits
 
-Keep track of what has already been edited matters as much as making the edit. Every point in napari carries a boolean `edited` property, set whenever it is dragged or removed, and the same information is saved back into the `movement` dataset as an `edited` array. So it's always possible to tell an original detection from a manually corrected one. This widget surfaces that flag in two places: (1) on the individual points of the current frame; and (2) on a timeline spanning the whole recording. 
+Keeping track of what has already been edited matters as much as making the edit. Every point in napari carries a boolean `edited` property, set whenever it is dragged or removed, and the same information is saved back into the `movement` dataset as an `edited` array. So it's always possible to tell an original detection from a manually corrected one. This widget surfaces that flag in two places: (1) on the individual points of the current frame; and (2) on a timeline spanning the whole recording. 
 
 On each individual frame, an edited keypoint is drawn as a hollow ring instead of a filled point. The symbol is derived directly from the `edited` property, so it persists on subsequent reloads of the exported dataset. With this change in marker symbol, the user can immediately tell edited (dragged) points from untouched ones when looking at the data from a single frame. Points that are deleted are simply removed from the `Points` layer. 
 
