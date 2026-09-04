@@ -13,7 +13,7 @@
 Hi, I'm [Anna](https://github.com/anna-teruel). I'm a neuroscientist interested in the study of social behaviour. 
 During my PhD I started using different open-source pose estimation tools, such as [DeepLabCut](https://github.com/DeepLabCut/DeepLabCut), to track animal behaviour. Working with real, multi-animal recordings, I kept running into the same problems: occlusions, noisy detections, and identity swaps that no automated pipeline could fully resolve. Programmatic corrections improved the data, but visual inspection and manual correction were always necessary, and the tools available for that were slow and hard to scale to large datasets.
 
-This summer, through [Google Summer of Code](https://summerofcode.withgoogle.com/) I had the opportunity to work with the [Neuroinformatics Unit](https://neuroinformatics.dev/) on [`movement`](https://movement.neuroinformatics.dev/), a Python toolbox for analysing animal body movements in pose estimation data. My project added an interactive [napari](https://napari.org/)-based GUI for correcting pose estimation tracks directly within the `movement` framework.
+This summer, through [Google Summer of Code](https://summerofcode.withgoogle.com/) I worked with the [Neuroinformatics Unit](https://neuroinformatics.dev/) on [`movement`](https://movement.neuroinformatics.dev/), a Python toolbox for analysing animal body movements in pose estimation data. My project added an interactive [napari](https://napari.org/)-based GUI for correcting pose estimation tracks directly within the `movement` framework.
 
 **Mentors:** [Sofía Miñano](https://github.com/sfmig), [Niko Sirmpilatze](https://github.com/niksirbi), [Chang Huan Lo](https://github.com/lochhh)
 
