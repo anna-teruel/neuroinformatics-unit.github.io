@@ -32,11 +32,7 @@ The editing itself relies on native `napari` tools, so anyone familiar with napa
 
 Loading a dataset in `movement` napari's GUI means reshaping `movement`'s `(individuals, keypoints, space, time)` array into the 2D array of points that napari expects. Missing detections (`NaN`) are not drawn in the `Points` layer, so at any frame the layer only holds the points that actually exist.
 
-Before making any edit on the dataset, we needed to write the data back from napari layers to `movement`'s `xarray` format. The function that converts `xarray` objects to `napari` layers is `ds_to_napari_layers`. We implemented a mirror function named `napari_layers_to_ds` that deals with the way back trip: it reverses this flattening process, rebuilding the full `(individuals, keypoints, space, time)` array from the layer and its properties, and re-inserts `NaN` everywhere a point is missing.
-
-Later work extended this function to handle canvas edits. Because the position array in the exported dataset is rebuilt from the live layer data, a dragged point needs no special treatment: its new coordinates can be retrieved from the napari layer data. 
-
-A deleted point is trickier, since it leaves no row in the layer data array at all. To solve this, the function compares the live layer data against the original input data, to tell a user deletion from an originally missing point. The function also checks that a keypoint or individual that is removed from all frames is also dropped from the exported dataset. Additionally, if the user deletes all keypoints across all frames, it raises an error rather than returning an empty dataset. 
+Writing edits back into `movement` needed the mirror of `ds_to_napari_layers`: a function we called `napari_layers_to_ds`, which turns an edited `Points` layer back into a `movement` dataset. Adapting it to correctly handle both dragging and deleting a point took real care — the goal was to make sure that any change a user made in napari was faithfully reflected in the resulting dataset — and we backed that with a thorough set of tests covering the different editing scenarios. 
 
 
 ### Showing the edits
@@ -47,14 +43,14 @@ On each individual frame, an edited keypoint is drawn as a hollow ring instead o
 
 <video autoplay loop muted playsinline
        style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
-  <source src="/_static/blog_images/gsoc2026_edit_save_widget/01_dragged_removed_points.mov" type="video/mp4">
+  <source src="../_static/blog_images/gsoc2026_edit_save_widget/01_dragged_removed_points.mp4" type="video/mp4">
 </video>
 
 To quickly visualise frames with edits, a timeline widget docked at the bottom of the viewer embeds a `matplotlib` canvas that plots one bar per frame. Instead of stepping through the video frame by frame, the user can scan the whole recording at a glance and click a bar to jump straight to a frame they have already edited.
 
 <video autoplay loop muted playsinline
        style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
-  <source src="/_static/blog_images/gsoc2026_edit_save_widget/02_basic_widget.mov" type="video/mp4">
+  <source src="../_static/blog_images/gsoc2026_edit_save_widget/02_basic_widget.mp4" type="video/mp4">
 </video>
 
 The canvas in the timeline widget is zoomable and scrollable: the user can zoom in and pan along the time axis to work through a dense region frame by frame, then double-click to snap back to the global view of the whole recording. This facilitates editing long recordings with thousands of frames.
@@ -63,7 +59,7 @@ For multi-animal datasets, the timeline can be split into one row per individual
 
 <video autoplay loop muted playsinline
        style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
-  <source src="/_static/blog_images/gsoc2026_edit_save_widget/04_display_individuals.mov" type="video/mp4">
+  <source src="../_static/blog_images/gsoc2026_edit_save_widget/04_display_individuals.mp4" type="video/mp4">
 </video>
 
 ### Keeping the layers in sync
@@ -72,18 +68,18 @@ Because the `Points` and `Tracks` layers are two views of the same data, an edit
 
 <video autoplay loop muted playsinline
        style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
-  <source src="/_static/blog_images/gsoc2026_edit_save_widget/05_tracks_update.mov" type="video/mp4">
+  <source src="../_static/blog_images/gsoc2026_edit_save_widget/05_tracks_update.mp4" type="video/mp4">
 </video>
 
 ### Saving and reloading an edited dataset
 
-The Save widget ties it together: it calls `napari_layers_to_ds()` on the edited layer and writes the result to a `NetCDF` file through `movement.io`, so the corrected tracks come out in the same format they went in. Before saving, it checks that the `Points` layer was actually created by `movement`'s loader, so trying to save an arbitrary napari layer as a pose dataset fails cleanly. For now, `movement`'s native NetCDF format is the only export option; we plan to support exporting to more formats in future releases.
+The Save widget ties it together: it calls `napari_layers_to_ds()` on the edited layer and writes the result to a `NetCDF` file through `movement.io`. Before saving, it checks that the `Points` layer was actually created by `movement`'s loader, so trying to save an arbitrary napari layer as a pose dataset fails cleanly. For now, `movement`'s native NetCDF format is the only export option, regardless of the format the dataset was loaded from (DeepLabCut, SLEAP, or `movement`); we plan to support exporting to more formats in future releases.
 
 Curating a long recording is rarely a single sitting, so the edits have to survive being closed and reopened. The saved file is a `movement` dataset that also carries the `edited` property, so loading it back into the GUI restores the full editing state: previously edited keypoints show as rings, the timeline re-populates its bars, and any further corrections accumulate on top of the earlier ones. A session can be picked up exactly where it was left off.
 
 <video autoplay loop muted playsinline
        style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
-  <source src="/_static/blog_images/gsoc2026_edit_save_widget/07_reload.mov" type="video/mp4">
+  <source src="../_static/blog_images/gsoc2026_edit_save_widget/07_reload.mp4" type="video/mp4">
 </video>
 
 ## What I did
