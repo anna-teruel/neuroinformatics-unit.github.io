@@ -74,7 +74,7 @@ For multi-animal datasets, the timeline can be split into one row per individual
 
 ### Keeping the layers in sync
 
-Because the `Points` and `Tracks` layers are two views of the same data, an edit to one has to propagate to the other. When a point is dragged or deleted, the corresponding vertex of the trajectory is updated in place, so the track line follows the correction immediately instead of only after the file is reloaded.
+Because the `Points` and `Tracks` layers are two views of the same data, an edit to one has to propagate to the other. When a point is dragged or deleted, the corresponding vertex of the trajectory is updated in place, so the track line follows the correction immediately.
 
 <video autoplay loop muted playsinline
        style="width:100%;max-width:820px;display:block;margin:1.5em auto 0;border-radius:6px">
