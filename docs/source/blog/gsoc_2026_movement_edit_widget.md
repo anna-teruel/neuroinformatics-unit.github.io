@@ -34,7 +34,9 @@ Loading a dataset in `movement` napari's GUI means reshaping `movement`'s `(indi
 
 Before making any edit on the dataset, we needed to write the data back from napari layers to `movement`'s `xarray` format. The function that converts `xarray` objects to `napari` layers is `ds_to_napari_layers`. We implemented a mirror function named `napari_layers_to_ds` that deals with the way back trip: it reverses this flattening process, rebuilding the full `(individuals, keypoints, space, time)` array from the layer and its properties, and re-inserts `NaN` everywhere a point is missing.
 
-Later work extended this function to handle edits. Because the position array is rebuilt from the live layer, a dragged point needs no special treatment: its new coordinates are already there. A deleted point is trickier, since it leaves no row in the layer at all; the function compares the live layer against the original structure to tell a user deletion from an always-missing point, and restores both as `NaN`. A keypoint or individual left with no data anywhere is then dropped from the dataset, a frame from which every point was removed is kept and filled with `NaN`, and deleting every point raises an error rather than returning an empty dataset. 
+Later work extended this function to handle canvas edits. Because the position array in the exported dataset is rebuilt from the live layer data, a dragged point needs no special treatment: its new coordinates can be retrieved from the napari layer data. 
+
+A deleted point is trickier, since it leaves no row in the layer data array at all. To solve this, the function compares the live layer data against the original input data, to tell a user deletion from an originally missing point. The function also checks that a keypoint or individual that is removed from all frames is also dropped from the exported dataset. Additionally, if the user deletes all keypoints across all frames, it raises an error rather than returning an empty dataset. 
 
 
 ### Showing the edits
