@@ -41,7 +41,7 @@ A deleted point is trickier, since it leaves no row in the layer data array at a
 
 ### Showing the edits
 
-Keeping track of what has already been edited matters as much as making the edit. Every point in napari carries a boolean `edited` property, set whenever it is dragged or removed, and the same information is saved back into the `movement` dataset as an `edited` array. So it's always possible to tell an original detection from a manually corrected one. This widget surfaces that flag in two places: (1) on the individual points of the current frame; and (2) on a timeline spanning the whole recording. 
+Keep track of what has already been edited matters as much as making the edit. Every point in napari carries a boolean `edited` property, set whenever it is dragged or removed, and the same information is saved back into the `movement` dataset as an `edited` array. So it's always possible to tell an original detection from a manually corrected one. This widget surfaces that flag in two places: (1) on the individual points of the current frame; and (2) on a timeline spanning the whole recording. 
 
 On each individual frame, an edited keypoint is drawn as a hollow ring instead of a filled point. The symbol is derived directly from the `edited` property, so it is rebuilt every time the dataset is reloaded rather than being applied by hand. Scanning a single frame, the user can immediately tell edited (dragged) points from untouched ones. Points that are deleted are removed from the `Points` layer. 
 
